@@ -1,0 +1,292 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	body {
+	  font-family: "Lato", sans-serif;
+	}
+
+	.sidenav {
+	  height: 100%;
+	  width: 0;
+	  position: fixed;
+	  z-index: 1;
+	  top: 0;
+	  left: 0;
+	  background-color: #111;
+	  overflow-x: hidden;
+	  transition: 0.5s;
+	  padding-top: 60px;
+	}
+
+	.sidenav a {
+	  padding: 8px 8px 8px 32px;
+	  text-decoration: none;
+	  font-size: 25px;
+	  color: #787878;
+	  display: block;
+	  transition: 0.93s;
+	}
+
+	.sidenav a:hover {
+	  color: #f1f1f1;
+	  margin:right;
+	}
+	.image{
+
+	height: auto;
+	max-width: 700%;
+	object-fit: cover;
+	background-size:100% 100%;
+	background-repeat: no-repeat;
+	}
+	.sidenav .closebtn {
+	  position: absolute;
+	  top: 10px;
+	  right: 15px;
+	  font-size: 30px;
+	  margin-top: 5px;
+	  margin-bottom: 10px;
+	}
+
+	@media screen and (max-height: 150px) {
+	  .sidenav {padding-top: 50px;}
+	  .sidenav a {font-size: 18px;}
+	}
+	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	body {font-family: Arial, Helvetica, sans-serif;}
+
+	/* Full-width input fields */
+	input[type=text], input[type=password] {
+	  width: 100%;
+	  padding: 12px 20px;
+	  margin: 8px 0;
+	  display: inline-block;
+	  border: 1px solid #ccc;
+	  box-sizing: border-box;
+	}
+
+	/* Set a style for all buttons */
+	button {
+	  background-color: #f1ff;
+	  color: black;
+	  padding: 10px 20px;
+	  margin: 500px 725px;
+	  margin-right: 400px;
+	  border: none;
+	  cursor: pointer;
+	  width: auto;
+	}
+
+	button:hover {
+	  opacity: 0.8;
+	}
+	.b{
+	margin: 100px 325px;
+	background-color:#08888888;
+	}
+
+	.a{
+	background-color:#b4b4;
+
+
+	}
+	/* Extra styles for the cancel button */
+	.cancelbtn {
+	  width: auto;
+	  padding: 10px 18px;
+	  margin: 0px 0px;
+	  background-color: #f44336;
+	  cursor: pointer;
+	}
+
+	/* Center the image and position the close button */
+	.imgcontainer {
+	  text-align:center;
+	  margin: 50px 0 12px 0;
+	  position: relative;
+	}
+	/*
+	.shadow {
+	   -moz-box-shadow:    inset 50 0 10px #000000;
+	   -webkit-box-shadow: inset 50 0 50px #000000;
+	   box-shadow:         inset 0 0 50px #000000;
+	    /*inset 5px 5px 10px #000000, */
+	  inset -5px -5px 10px blue;
+
+	}*/
+	.shadow{
+	background: linear-gradient(to bottom, #33ff 0%, #ff9cc 100%);
+	}
+	img.avatar {
+	  width: 30%;
+	  border-radius: 50%
+	}
+	img{
+	width: 100px;
+	}
+	.container {
+	  padding: 100px;
+	  width:auto;
+	  margin: 100px, 0px;
+	}
+	.d{
+	color:white;
+	font-size:50px;
+	}
+	.p{
+	margin: 120px 310px;
+	color : black;
+
+	}
+	span.psw {
+	  float: center;
+	  padding-top: 16px;
+	}
+
+	/* The Modal (background) */
+	.modal {
+	  display: none; /* Hidden by default */
+	  position: fixed; /* Stay in place */
+	  z-index: 1; /* Sit on top */
+	  left: 0;
+	  top: 0;
+	  width: 100%; /* Full width */
+	  height: 100%; /* Full height */
+	  overflow: auto; /* Enable scroll if needed */
+	  background-color: rgb(0,85,100); /* Fallback color */
+	  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	  padding-top: 60px;
+	}
+
+	/* Modal Content/Box */
+	.modal-content {
+	  background-color: #cece;
+	  margin: 0% auto 5% auto; /* 5% from the top, 15% from the bottom and centered */
+	  border: 1px solid #1288;
+	  width: 100%; /* Could be more or less, depending on screen size */
+	}
+
+	/* The Close Button (x) */
+	.close {
+	  position: absolute;
+	  right: 25px;
+	  top: 0;
+	  color: #3c3c3c;
+	  font-size: 35px;
+	  font-weight: bold;
+	}
+
+	.close:hover,
+	.close:focus {
+	  color: yellow;
+	  cursor: pointer;
+	}
+
+	/* Add Zoom Animation */
+	.animate {
+	  -webkit-animation: animatezoom 0.9s;
+	  animation: animatezoom 0.7s
+	}
+
+	@-webkit-keyframes animatezoom {
+	  from {-webkit-transform: scale(0)} 
+	  to {-webkit-transform: scale(1)}
+	}
+	  
+	@keyframes animatezoom {
+	  from {transform: scale(0)} 
+	  to {transform: scale(1)}
+	}
+
+	/* Change styles for span and cancel button on extra small screens */
+	@media screen and (max-width: 100px) {
+	  span.psw {
+	     display: block;
+	     float: none;
+	  }
+	  .cancelbtn {
+	     width: 200%;
+	  }
+	}
+	</style>
+	</head>
+	 	
+	<body class ="shadow" bgcolor=#39a4ff>
+
+
+	<h2><center>JOB 1 By developer </h2>
+
+	<button class = "b" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+
+	<div id="id01" class="modal">
+	  
+	  <form class="modal-content animate" action="/action_page.php" method="post">
+	    <div class="imgcontainer">
+	      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+	      <img src="DEVOPS_3.png" alt="Avatar" class="avatar">
+	    </div>
+	>
+	    <div class="container">
+	      <label for="uname"><b>Username</b></label>
+	      <input type="text" placeholder="Enter Username" name="uname" required>
+
+	      <label for="psw"><b>Password</b></label>
+	      <input type="password" placeholder="Enter Password" name="psw" required>
+		
+	      <button type="submit">Login</button>
+	      <label>
+		<input class="a" type="checkbox" checked="checked" name="remember"> Remember me
+	      </label>
+	    </div>
+
+	    <div class="container" style="background-color:#b4b4b4b4">
+	      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+	      <span class="psw">Forgot <a href="#">password?</a></span>
+	    </div>
+	  </form>
+	</div>
+
+	<div id="mySidenav" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	  <a href="#">Docker  🐋</a>
+	  <a href="#">Jenkins  </a>
+	  <a href="#">Kubernetives</a>
+	  <a href="#">Graphana</a>
+	  <a href="#">Maven</a>
+
+	  <a href="#">About</a>
+	</div>
+	<div class="d">
+	<h1><center>CREATING  DOCKER  IMAGE  FROM  DOCKER  FILE</h1>
+	</div>
+	<span class="p" style="font-size:20px;cursor:pointer" onclick="openNav()">&#852576; Contents</span>
+
+	<script>
+	function openNav() {
+	  document.getElementById("mySidenav").style.width = "250px";
+	}
+
+	function closeNav() {
+	  document.getElementById("mySidenav").style.width = "0px";
+	}
+	</script>
+
+	<script>
+	// Get the modal
+	var modal = document.getElementById('id01');
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+		modal.style.display = "none";
+	    }
+	}
+	</script>
+	<img src="https://miro.medium.com/max/6592/1*SjREQ3vFbjWurkdviiwBEQ.png" alt="Mountain" style="width:1500px">
+
+	</body>
+	</html>
