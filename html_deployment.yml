@@ -1,0 +1,83 @@
+apiVersion: v1
+
+kind: Service
+
+metadata:
+
+  name: myweb
+  labels:
+
+    app: myweb
+
+spec:
+
+  ports:
+
+    - port: 80
+      nodePort: 30100
+
+  selector:
+
+    app: myweb
+
+    tier: frontend
+
+  type: NodePort
+
+---
+
+apiVersion: v1
+
+kind: PersistentVolumeClaim
+
+metadata:
+
+  name: web-pvc1
+
+  labels:
+
+    app: myweb
+
+spec:
+
+  accessModes:
+
+    - ReadWriteOnce
+
+  resources:
+
+    requests:
+
+      storage: 20Gi
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: myweb
+spec:
+    selector:
+          matchLabels:
+              app: myweb
+              tier: frontend
+
+    template:
+        metadata:
+            name: myweb
+            labels:
+                app: myweb
+                tier: frontend
+
+        spec:
+            containers:
+                - name: myweb
+                  image: httpd
+                  volumeMounts: 
+                      - name: web-vol1
+                        mountPath: /usr/local/apache2/htdocs
+            volumes:
+                - name: web-vol1
+                  persistentVolumeClaim: 
+                      claimName: web-pvc1
