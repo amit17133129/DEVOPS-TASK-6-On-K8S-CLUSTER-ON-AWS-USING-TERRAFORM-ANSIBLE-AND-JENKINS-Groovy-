@@ -1,70 +1,83 @@
-job('Job1') {
-    triggers {
-        upstream('Admin(Seed)', 'SUCCESS')
-    }
-    scm{
-        github('amit17133129/task_2' , 'master')
+freeStyleJob('job1') {
+    description("Pull Code from Github")
+    scm {
+        github('amit17133129/task_2', 'master')
     }
     triggers {
-        githubPush()
+        scm("* * * * *") 
     }
     steps {
-        shell('sudo cp -rvf * /root/DevOpsAL_task6/')
+        shell('''if sudo ls / | grep devops-task6
+then
+    sudo rm -rvf /devops-task6
+fi
+sudo mkdir /devops-task6
+sudo cp -rvf * /devops-task6''')
     }
 }
 
-
-
-job('Job2') {
+freeStyleJob('job2') {        
     triggers {
-        upstream('Job1', 'SUCCESS')
+        upstream('job1')
     }
-    steps{
-        shell('''
-            if sudo ls /root/DevOpsAL_task6/ | grep .html
-            then
-                if kubectl get deploy | grep html-deploy
-                then
-                    kubectl delete -f /root/DevOpsAL_task6/html-pvc.yml
-                fi
-                
-                kubectl create -f /root/DevOpsAL_task6/html-pvc.yml
-                sleep 3
-                pod=$(kubectl get pods -l env=production --output=jsonpath={.items[0]..metadata.name} | grep html-deploy)
-                kubectl cp /root/DevOpsAL_task6/*.html $pod:/usr/local/apache2/htdocs/
-            fi 
-            if sudo ls /root/DevOpsAL_task6/ | grep .php
-            then
-                if kubectl get deploy | grep php-deploy
-                then
-                    kubectl delete -f /root/DevOpsAL_task6/php-pvc.yml
-                fi
-                
-                kubectl create -f /root/DevOpsAL_task6/php-pvc.yml
-                sleep 3
-                pod=$(kubectl get pods -l env=production --output=jsonpath={.items[0]..metadata.name} | grep php-deploy)
-                kubectl cp /root/DevOpsAL_task6/*.php $pod:/var/www/html/
-            fi
-        ''') 
-    }
+    steps {
+        shell('''if ls /devops-task6 | grep .html
+then 
+    if sudo kubectl get all | grep myweb
+    then
+        kubectl delete all --all
+        kubectl delete pvc --all
+    fi
+    sudo kubectl create -f /root/deployment/html_deployment.yml 
+    Pod_Name=$(kubectl get pod -l app=myweb -o jsonpath="{.items[0].metadata.name}")
+    sleep 50
+    sudo kubectl cp /devops-task6/*.html $Pod_Name:/usr/local/apache2/htdocs/
     
+elif ls /devops-task6 | grep .php
+then 
+    if sudo kubectl get all | grep myweb-php
+    then
+         sudo kubectl delete all --all
+         sudo kubectl delete pvc --all
+    fi
+    sudo kubectl create -f /root/deployment/php_deployment.yml 
+    Pod_Name=$(kubectl get pod -l app=myweb -o jsonpath="{.items[0].metadata.name}")
+    sleep 50
+    sudo kubectl cp /devops-task6/*.php $Pod_Name:/var/www/html/
+else
+   echo "There is something wrong"
+fi
+ ''')
+    }   
 }
 
-job('Job3') {
+freeStyleJob('job3') {
     triggers {
-        upstream('Job2', 'SUCCESS')
+        upstream('job2')
     }
     steps {
-        shell('''
-            status=$(curl -o /dev/null -sw "%{http_code}" 15.207.102.20:30001)
-            if [[ $status == 200 ]]
-            then
-                exit 0
-            else
-                exit 1
-            fi
-        ''')
+        shell('''status=$(sudo curl -o /dev/null -s -w "%{http_code}" 192.168.99.100:30100)
+if [[ $status == 200 ]]
+then 
+   echo "ok"
+else 
+   echo "There is some error"
+   sudo curl --user "<User_name>:<Password>" http://172.17.0.2:8090/job/job4/build?token=Task6
+fi
+ ''')
     }
+}
+
+freeStyleJob('job4') {
+    authenticationToken('Task6')
+    triggers {
+        upstream('job3')
+    }
+    steps {
+        shell('''if sudo kubectl get all | grep myweb
+then
+    echo "everything is working fine"
+else
     publishers {
         extendedEmail {
             recipientList('amitsharma13318@gmail.com')
@@ -84,16 +97,17 @@ job('Job3') {
             }
         }
     }
+fi''')
+    }
 }
 
 
-buildPipelineView('DevOpsAL_task6') {
+buildPipelineView('Devops-task6') {
     filterBuildQueue()
     filterExecutors()
-    title('DevOpsAL_task6')
-    displayedBuilds(5)
-    selectedJob('Job1')
+    title('CI Pipeline')
+    selectedJob('job1')
     alwaysAllowManualTrigger()
     showPipelineParameters()
-    refreshFrequency(60)
+    refreshFrequency(10)
 }
