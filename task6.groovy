@@ -1,7 +1,7 @@
 freeStyleJob('job1') {
     description("Pull Code from Github")
     scm {
-        github('rups04/Dev-task6', 'master')
+        github('amit17133129/task_2', 'master')
     }
     triggers {
         scm("* * * * *") 
@@ -15,7 +15,6 @@ sudo mkdir /devops-task6
 sudo cp -rvf * /devops-task6''')
     }
 }
-
 freeStyleJob('job2') {        
     triggers {
         upstream('job1')
@@ -50,7 +49,6 @@ fi
  ''')
     }   
 }
-
 freeStyleJob('job3') {
     triggers {
         upstream('job2')
@@ -62,12 +60,11 @@ then
    echo "ok"
 else 
    echo "There is some error"
-   sudo curl --user "<User_name>:<Password>" http://172.17.0.2:8090/job/job4/build?token=Task6
+   sudo curl --user "<user_name>:<password>" http://172.17.0.2:8090/job/job4/build?token=Task6
 fi
  ''')
     }
 }
-
 freeStyleJob('job4') {
     authenticationToken('Task6')
     triggers {
@@ -82,20 +79,13 @@ else
 fi''')
     }
 }
-
-
 buildPipelineView('Devops-task6') {
     filterBuildQueue()
     filterExecutors()
     title('CI Pipeline')
+    displayedBuilds(5)
     selectedJob('job1')
     alwaysAllowManualTrigger()
     showPipelineParameters()
     refreshFrequency(10)
 }
-×
-Drag and Drop
-The image will be downloaded
-×
-Drag and Drop
-The image will be downloaded
