@@ -56,7 +56,7 @@ freeStyleJob('job3') {
         upstream('job2')
     }
     steps {
-        shell('''status=$(sudo curl -o /dev/null -s -w "%{http_code}" 172.31.19.138:30100)
+        shell('''status=$(sudo curl -o /dev/null -s -w "%{http_code}" 15.207.102.20:30100)
 if [[ $status == 200 ]]
 then 
    echo "ok"
